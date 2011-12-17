@@ -9,4 +9,4 @@ handlers:
   expiration: 365d
 
 - url: /.*
-  script: app.py
+  script: hellowebob/__init__.py
