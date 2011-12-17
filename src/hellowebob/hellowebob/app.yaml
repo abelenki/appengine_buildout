@@ -1,4 +1,4 @@
-application: app
+application: hellowebob
 version: 1
 runtime: python
 api_version: 1
@@ -9,4 +9,4 @@ handlers:
   expiration: 365d
 
 - url: /.*
-  script: hellowebob/__init__.py
+  script: __init__.py
