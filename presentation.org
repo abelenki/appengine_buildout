@@ -1,0 +1,104 @@
+* Google App Engine
+
+  - Easy To Build
+  - Easy To Maintain
+  - Easy To Scale
+  - Easy To Deploy
+
+    [[http://code.google.com/appengine][more information]]
+
+* What Is It?
+
+  - Platform As A Service(PAAS)
+    - 1 part cloud
+    - 1 part services
+    - 1 part bes practices
+
+* Why?
+
+  - ROFL Scale
+    - If you have the $$
+      - Cheaper than staffing your own datacenter
+
+* PAAS Explained
+
+  - Why the cloud ?
+    - take advantage of google's data centers and infrastructure
+    - outsource most of your network operations related to application
+      development
+  - ROFLSCALE
+    - load balancing
+    - caching(memcached)
+    - distributed data storage(datastore NOSQL)
+    - distributed file storage(blobstore)
+    - high performance image serving
+    - offline processing
+      - Scheduled tasks
+      - Pipelines
+      - Map/Reduce
+    - Best Practices
+      - Documentation
+      - API Enforced
+      - Quota Enforced
+
+* Tangent: Getting the examples (git)
+
+  - examples are on github at
+    https://github.com/twillis/appengine_buildout
+  - you can use the master branch as a template for your projects, all
+    the examples are on the presentation branch
+
+    
+#+BEGIN_SRC bash
+
+    ~$ git clone https://github.com/twillis/appengine_buildout 
+    ~$ cd appengine_buildout
+    ~/appengine_buildout$ git checkout presentation
+
+#+END_SRC
+
+* Tangent: Buildout
+  [[http://www.buildout.org/][Buildout]] achieves the same goals as virtualenv, but can do things
+  that are more complicated than virtualenv can do at this time. Such
+  as download and setup the google appengine sdk for you.
+
+#+BEGIN_SRC bash
+  ~/appengine_buildout$ /path/to/python2.5 bootstrap.py --distribute
+  ~/appengine_buildout$ ./bin/buildout
+#+END_SRC
+
+* Example: Hello App Engine
+
+  - [[file:src/hellowsgi/hellowsgi/__init__.py][wsgi]]
+
+#+BEGIN_SRC bash
+    ~/appengine_buildout$ ./bin/devappserver parts/hellowsgi-app
+#+END_SRC
+
+  - [[file:src/hellowebob/hellowebob/__init__.py][webob]]
+#+BEGIN_SRC bash
+    ~/appengine_buildout$ ./bin/devappserver parts/hellowebob-app
+#+END_SRC
+  
+* Demonstration: BroCabAE
+
+  - [[http://docs.pylonsproject.org/projects/pyramid/en/1.0-branch/][pyramid]] for request routing
+  - [[http://www.makotemplates.org/][mako]] for templating
+  - App Engine [[http://code.google.com/appengine/docs/python/datastore/][Datastore]] for data storage
+  - [[http://code.google.com/appengine/docs/python/tools/appstats.html][statistics]] middleware (accessible via
+    http://localhost:8080/_ah/stats)
+  - the [[file:src/brocab/brocab/app.py][app]]
+
+#+BEGIN_SRC bash
+    ~/appengine_buildout$ ./bin/devappserver parts/brocab-app
+#+END_SRC
+
+* Tangent: Integration Testing
+
+  - write them with [[http://webtest.pythonpaste.org/en/latest/index.html][webtest]]
+  - brocab [[file:src/brocab/test/test_app.py][tests]]
+    
+    
+#+BEGIN_SRC bash
+    ~/appengine_buildout$ ./bin/nosetests -x --with-gae --gae-application=parts/brocab-app/ src/brocab/test/test_app.py
+#+END_SRC
