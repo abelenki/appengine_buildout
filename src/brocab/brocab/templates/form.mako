@@ -1,9 +1,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>
-      Brocab on AppEngine
-    </title>
+    <title>Brocab on AppEngine</title>
   </head>
   <body>
     <h1>BROcabulary</h1>
@@ -22,7 +20,7 @@
         this has nothing to do with appengine, pyramid etc.... this is
         just a style for handling forms, nothing more
     -->
-    <form action="?POST" method="POST">
+    <form action="${request.application_url}/${request.view_name}?POST" method="POST">
       <label>
 	Word
       </label>
@@ -33,6 +31,7 @@
 	<br>
 	<textarea name="definition">${definition or ''}</textarea> 
 	  <input type="hidden" name="id" value="${id or ''}">
+	  <input type="hidden" name="POST" value="do it">
       <input type="submit" value="Save">
     </form>
   </body>

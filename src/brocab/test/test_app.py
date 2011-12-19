@@ -51,36 +51,61 @@ class TestCrud(unittest.TestCase):
         self.test_data = test_data
 
     def testList(self):
+        """
+        check if all test data is accounted for
+        """
         res = self.app.get("/index.html")
 
-        for c in string.ascii_letters:
-            self.assert_("BRO%s" % c in res.body, "value %s missing" % c)
-            self.assert_("A bro%s" % c in res.body, "definition %s missing" % c)
+        for c in self.test_data:
+            self.assert_(c.value in res.body, "value %s missing" % c.value)
+            self.assert_(c.definition in res.body, "definition %s missing" % c.definition)
 
     def testCreateNew(self):
+        """
+        check if create new works
+        """
         res = self.app.get("/edit.html")
         form = res.form
         form.set("value", "new bro word")
         form.set("definition", "new bro definition")
         res = form.submit()
+
+        # should get redirected if success
         self.assert_(res.status_int == 302, res.status)
 
+        # new word in the database?
         words = [w for w in Word.all() if w.value == "new bro word"]
-        self.assert_(words)
+        self.assert_(len(words) and words[0])
+        #follow redirect
         res = res.follow()
+        # check that it shows up on the listing
         res = self.app.get("/index.html")
         self.assert_("new bro word" in res.body, str(res))
 
 
     def testEdit(self):
+        """
+        check that editting words works
+        """
+        # for each word, edit it and see if it shows up in the listing
+        # with the new values
         for w in self.test_data:
             res = self.app.get("/edit.html", dict(_id=w.key().id()))
             form = res.form
             self.assert_(w.value == form["value"].value, form["value"].value)
-            self.assert_(w.definition == form["definition"].value, form["definition"].value)
-            self.assert_(str(w.key().id()) == form["id"].value, form["id"].value)
-            form.set("value", "new bro word %s" % w.value)
-            form.set("definition", "new bro definition %s" % w.definition)
+            self.assert_(w.definition == form["definition"].value,\
+                         form["definition"].value)
+            self.assert_(str(w.key().id()) == form["id"].value,\
+                         form["id"].value)
+            new_value = "new bro word %s" % w.value
+            new_definition = "new bro definition %s" % w.definition
+            form.set("value", new_value)
+            form.set("definition", new_definition)
             res = form.submit()
             self.assert_(res.status_int == 302, res.status)
-
+            word = Word.get_by_id(w.key().id())
+            self.assert_(word)
+            res = res.follow()
+            res = self.app.get("/index.html")
+            self.assert_(new_value in res.body, str(res))
+            self.assert_(new_definition in res.body, str(res))

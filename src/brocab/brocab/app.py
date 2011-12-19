@@ -26,6 +26,7 @@ def view_form(request):
     response = None
 
     if "POST" in request.params:
+
         # handle form post (would validate input here)
         _id, value, definition = request.POST.get("id"), \
                                 request.POST.get("value"), \
