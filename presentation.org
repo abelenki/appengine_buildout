@@ -79,7 +79,20 @@
 #+BEGIN_SRC bash
     ~/appengine_buildout$ ./bin/devappserver parts/hellowebob-app
 #+END_SRC
-  
+* Deployment
+** Create the application(bucket) on appengine
+   - Sign in to [[https://appengine.google.com][appengine]] with one of your many gmail addresses.
+   - The first time you create an application, you will need a sms text
+     verification so get your phone ready(or google voice #)
+   - Once confirmed, can create an application, which is really just a
+     bucket to deploy applications to.
+** Deploying to your application bucket
+#+BEGIN_SRC bash
+   ~/appengine_buildout$ ./bin/appcfg update parts/<your_app>/ -A <your_app_id>
+#+END_SRC
+** Accessing your application
+   - given your application id is "myappid" you can access your
+     application in the browser via http://myappid.appspot.com
 * Demonstration: BroCabAE
 
   - [[http://docs.pylonsproject.org/projects/pyramid/en/1.0-branch/][pyramid]] for request routing
