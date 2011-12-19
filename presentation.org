@@ -12,7 +12,7 @@
   - Platform As A Service(PAAS)
     - 1 part cloud
     - 1 part services
-    - 1 part bes practices
+    - 1 part best practices
 
 * Why?
 
