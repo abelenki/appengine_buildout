@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import sys, os
 
 version = '0.0'
 
@@ -8,7 +7,7 @@ setup(name='hellowsgi',
       description="hello world wsgi version",
       long_description="""\
 """,
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      classifiers=[],
       keywords='',
       author='tom willis',
       author_email='tom@batterii.com',

@@ -17,10 +17,8 @@ def hello_world(environ, start_response):
     return res(environ, start_response)
 
 
-
 def main():
     run_wsgi_app(hello_world)
 
 if __name__ == '__main__':
     main()
-

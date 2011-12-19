@@ -58,7 +58,8 @@ class TestCrud(unittest.TestCase):
 
         for c in self.test_data:
             self.assert_(c.value in res.body, "value %s missing" % c.value)
-            self.assert_(c.definition in res.body, "definition %s missing" % c.definition)
+            self.assert_(c.definition in res.body,
+                         "definition %s missing" % c.definition)
 
     def testCreateNew(self):
         """
@@ -81,7 +82,6 @@ class TestCrud(unittest.TestCase):
         # check that it shows up on the listing
         res = self.app.get("/index.html")
         self.assert_("new bro word" in res.body, str(res))
-
 
     def testEdit(self):
         """
