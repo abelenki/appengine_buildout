@@ -2,6 +2,17 @@
  CincyPy App Engine Presentation
 =================================
 
+This was used as part of a presentation to the Python Users Group 
+of Cincinnati(CincyPy) back in November of 2011.  Since then many 
+things have changed. For example it is now possible to run on python2.7
+
+If you are looking for a buildout based solution for developing projects 
+for Google App Engine, you will probably find 
+https://github.com/twillis/pyramid_appengine more useful.
+
+
+
+
 Environment Setup
 =================
 
